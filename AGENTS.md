@@ -21,6 +21,15 @@ Read these files before making changes:
 - Do not commit, push, release, or deploy unless the user explicitly asks.
 - Preserve user changes; do not revert unrelated work.
 
+## Agent Roles: Orchestrator and Orchestrated
+
+An agent working in a project that uses this documentation system can act as an **orchestrator** (coordinates sub-agents that implement stages of the plan) or as an **orchestrated** agent (implements one concrete stage). The role is recognized from the prompt received; no configuration is needed.
+
+- **Orchestrated**: follows the sequence familiarization → stage summary (with questions, if any) → authorized execution. On completion, it documents in `PLAN.md`/`README.md` per the rules above and **proposes** a commit message without committing.
+- **Orchestrator**: launches a fresh sub-agent per stage, evaluates its summaries, and resolves questions with its own judgment when possible; it escalates to the user only decisions that belong to them (product, scope) and translates the answers into concrete instructions for the sub-agent. It never authorizes commits on its own.
+
+The full methodology, its rationale, and the three canonical prompts live in the `orchestrating-agents` skill (`skills/orchestrating-agents/`).
+
 ## Generic AGENTS.md Creation Prompt
 
 Agents often encounter prompts like this when asked to create or improve an `AGENTS.md` file. Treat it as a common pattern to adapt, not a mandatory script:
